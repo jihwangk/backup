@@ -1,0 +1,18 @@
+{
+	"anaconda_linter_delay": 2,
+	"anaconda_linter_show_errors_on_save": true,
+	"anaconda_linting": true,
+	"bold_folder_labels": true,
+	"font_size": 9,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"rulers":
+	[
+		80
+	],
+	"tab_size": 4,
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true
+}

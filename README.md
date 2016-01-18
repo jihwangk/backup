@@ -1,2 +1,1 @@
-# backup
-Ubuntu config files backup
+# Ubuntu Config
