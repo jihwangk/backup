@@ -64,7 +64,7 @@ fi
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1="\[$bldpur\]★\[$txtwht\]:\[$bldcyn\]\w\[$txtwht\] \$ "
+    PS1="\[$bldpur\]★ \[$txtwht\]:\[$bldcyn\]\w\[$txtwht\] \$ "
     # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
@@ -144,4 +144,4 @@ else
   echo "Please modify ROBOTIC_PATH in your ~/.bashrc"
   echo "to point to your robotics directory."
 fi
-source /opt/ros/jade/setup.bash
+source ~/git/auv/catkin_ws/devel/setup.bash
