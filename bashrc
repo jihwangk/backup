@@ -100,6 +100,10 @@ alias l='ls -CF'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias aquarium='/usr/local/bin/asciiquarium'
 alias android="/usr/local/android-studio/bin/studio.sh"
+alias local_master="export ROS_MASTER_URI=http://localhost:11311"
+alias auv_master="export ROS_MASTER_URI=http://10.0.0.1:11311"
+alias eth_ros="export ROS_IP="$(ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')""
+alias wlan_ros="export ROS_IP="$(ifconfig wlan0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')""
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -144,4 +148,23 @@ else
   echo "Please modify ROBOTIC_PATH in your ~/.bashrc"
   echo "to point to your robotics directory."
 fi
-source ~/git/auv/catkin_ws/devel/setup.bash
+
+husky2() {
+    export ROS_MASTER_URI=http://192.168.0.22:11311
+    sudo ifconfig eth0 down
+    sudo ifconfig eth0 up
+    sudo ip addr add 192.168.0.180/24 dev eth0
+    ~/ip_forwarding_husky.sh 192.168.0.180  192.168.0.22  wlan0 eth0 192.168.0.0
+    eth_ros
+    source /home/jana/thesis_ws/devel/setup.bash
+}
+
+auv() {
+    wlan_ros
+    auv_master
+    source /home/jana/git/auv/catkin_ws/devel/setup.bash
+}
+
+wlan_ros
+export PYTHONPATH=${PYTHONPATH}:"/home/jana/git/school/ecse543"
+local_master
