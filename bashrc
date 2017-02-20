@@ -102,8 +102,8 @@ alias aquarium='/usr/local/bin/asciiquarium'
 alias android="/usr/local/android-studio/bin/studio.sh"
 alias local_master="export ROS_MASTER_URI=http://localhost:11311"
 alias auv_master="export ROS_MASTER_URI=http://10.0.0.1:11311"
-alias eth_ros="export ROS_IP="$(ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')""
-alias wlan_ros="export ROS_IP="$(ifconfig wlan0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')""
+# alias eth_ros="export ROS_IP="$(ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')""
+# alias wlan_ros="export ROS_IP="$(ifconfig wlan0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')""
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -149,22 +149,33 @@ else
   echo "to point to your robotics directory."
 fi
 
+ethros() {
+  IP=$(ifconfig eth0 | grep "inet addr:" | cut -d: -f2 | awk '{ print $1 }')
+  export ROS_IP=$IP
+}
+
+wlanros() {
+  IP=$(ifconfig wlan0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')
+  export ROS_IP=$IP
+}
+
 husky2() {
     export ROS_MASTER_URI=http://192.168.0.22:11311
     sudo ifconfig eth0 down
     sudo ifconfig eth0 up
     sudo ip addr add 192.168.0.180/24 dev eth0
     ~/ip_forwarding_husky.sh 192.168.0.180  192.168.0.22  wlan0 eth0 192.168.0.0
-    eth_ros
+    ethros
     source /home/jana/thesis_ws/devel/setup.bash
 }
 
 auv() {
-    wlan_ros
+    wlanros
     auv_master
     source /home/jana/git/auv/catkin_ws/devel/setup.bash
 }
 
-wlan_ros
-export PYTHONPATH=${PYTHONPATH}:"/home/jana/git/school/ecse543"
+wlanros
+export PYTHONPATH=${PYTHONPATH}:"/home/jana/git/school/ecse543:/usr/lib/python2.7/dist-packages"
+# :/usr/lib/python2.7/dist-packages
 local_master

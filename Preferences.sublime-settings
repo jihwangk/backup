@@ -4,19 +4,20 @@
 	"anaconda_linting": true,
 	"bold_folder_labels": true,
 	"color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
+	"copy_with_empty_selection": false,
 	"ensure_newline_at_eof_on_save": true,
-	"font_size": 11,
+	"font_size": 10,
 	"ignored_packages":
 	[
 		"Vintage"
 	],
 	"rulers":
 	[
-		80, 120
+		80,
+		120
 	],
 	"tab_size": 4,
 	"translate_tabs_to_spaces": true,
 	"trim_automatic_white_space": true,
-	"trim_trailing_white_space_on_save": true,
-	"copy_with_empty_selection": false
+	"trim_trailing_white_space_on_save": true
 }
