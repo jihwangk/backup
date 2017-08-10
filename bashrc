@@ -52,12 +52,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
     else
-	color_prompt=
+    color_prompt=
     fi
 fi
 
@@ -98,17 +98,15 @@ alias l='ls -CF'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias aquarium='/usr/local/bin/asciiquarium'
-alias android="/usr/local/android-studio/bin/studio.sh"
-alias local_master="export ROS_MASTER_URI=http://localhost:11311"
-alias auv_master="export ROS_MASTER_URI=http://10.0.0.1:11311"
-# alias eth_ros="export ROS_IP="$(ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')""
-# alias wlan_ros="export ROS_IP="$(ifconfig wlan0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')""
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
+alias aquarium='/usr/local/bin/asciiquarium'
+alias android="/usr/local/android-studio/bin/studio.sh"
+alias local_master="export ROS_MASTER_URI=http://localhost:11311"
+alias auv_master="export ROS_MASTER_URI=http://10.0.0.1:11311"
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -125,38 +123,16 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-#
-# MCGILL ROBOTICS CONFIGURATION
-#
-# The following can be modified.
-# EDITOR        Your text editor of choice.
-# ROBOT         Team you are working on ('auv', 'drone' or 'rover').
-# IAMROBOT      If computer runs robot ('true' or 'false')
-# ROBOTIC_PATH  Absolute path to directory containing the local
-#               McGill Robotics git repositories.
-#
-export EDITOR=vim
-export ROBOT=auv
-export IAMROBOT=false
-export ROBOTIC_PATH=/home/jana/git
-if [[ -f ${ROBOTIC_PATH}/compsys/roboticrc ]]; then
-  source ${ROBOTIC_PATH}/compsys/roboticrc
-else
-  echo "Could not find ${ROBOTIC_PATH}/compsys/roboticrc"
-  echo "This could occur when moving the robotics directory."
-  echo "Please modify ROBOTIC_PATH in your ~/.bashrc"
-  echo "to point to your robotics directory."
-fi
-
 ethros() {
-  IP=$(ifconfig eth0 | grep "inet addr:" | cut -d: -f2 | awk '{ print $1 }')
-  export ROS_IP=$IP
+    INTERFACE=$(ifconfig | grep -o "^eth[0-9]\+")
+    IP=$(ifconfig $INTERFACE | grep "inet addr:" | cut -d: -f2 | awk '{ print $1 }')
+    export ROS_IP=$IP
 }
 
 wlanros() {
-  IP=$(ifconfig wlan0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')
-  export ROS_IP=$IP
+    INTERFACE=$(ifconfig | grep -o "^wlan[0-9]\+")
+    IP=$(ifconfig $INTERFACE | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')
+    export ROS_IP=$IP
 }
 
 husky2() {
@@ -167,15 +143,37 @@ husky2() {
     ~/ip_forwarding_husky.sh 192.168.0.180  192.168.0.22  wlan0 eth0 192.168.0.0
     ethros
     source /home/jana/thesis_ws/devel/setup.bash
+
+    echo "Husky2 environment:"
+    print_env
 }
 
 auv() {
     wlanros
     auv_master
     source /home/jana/git/auv/catkin_ws/devel/setup.bash
+
+    echo "AUV environment:"
+    print_env
 }
 
-wlanros
-export PYTHONPATH=${PYTHONPATH}:"/home/jana/git/school/ecse543:/usr/lib/python2.7/dist-packages"
-# :/usr/lib/python2.7/dist-packages
+local_ros() {
+    local_master
+    wlanros
+    source /etc/ros/setup.bash
+
+    echo "Local environment:"
+    print_env
+}
+
+print_env() {
+    echo "--------------------------------------------------------------------"
+    echo "ROS_MASTER_URI=$ROS_MASTER_URI"
+    echo "ROS_IP=$ROS_IP"
+    echo "ROS_ROOT=$ROS_ROOT"
+    echo "--------------------------------------------------------------------"
+}
+
 local_master
+wlanros
+source /etc/ros/setup.bash
