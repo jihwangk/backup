@@ -1,0 +1,10 @@
+Installed Sublime Packages:
+
+- Package control
+- Anaconda
+- SideBarEnhancements
+- GitGutter
+- DocBlockr
+- CMake
+- Sublime Linter
+	- annotations
