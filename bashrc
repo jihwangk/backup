@@ -97,21 +97,15 @@ alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias aquarium='/usr/local/bin/asciiquarium'
-alias android="/usr/local/android-studio/bin/studio.sh"
-alias local_master="export ROS_MASTER_URI=http://localhost:11311"
-alias auv_master="export ROS_MASTER_URI=http://10.0.0.1:11311"
-# alias eth_ros="export ROS_IP="$(ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')""
-# alias wlan_ros="export ROS_IP="$(ifconfig wlan0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')""
 
 # Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
+fi
+
+# Function definitions.
+if [ -f ~/.bash_fns ]; then
+    . ~/.bash_fns
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -125,57 +119,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-#
-# MCGILL ROBOTICS CONFIGURATION
-#
-# The following can be modified.
-# EDITOR        Your text editor of choice.
-# ROBOT         Team you are working on ('auv', 'drone' or 'rover').
-# IAMROBOT      If computer runs robot ('true' or 'false')
-# ROBOTIC_PATH  Absolute path to directory containing the local
-#               McGill Robotics git repositories.
-#
-export EDITOR=vim
-export ROBOT=auv
-export IAMROBOT=false
-export ROBOTIC_PATH=/home/jana/git
-if [[ -f ${ROBOTIC_PATH}/compsys/roboticrc ]]; then
-  source ${ROBOTIC_PATH}/compsys/roboticrc
-else
-  echo "Could not find ${ROBOTIC_PATH}/compsys/roboticrc"
-  echo "This could occur when moving the robotics directory."
-  echo "Please modify ROBOTIC_PATH in your ~/.bashrc"
-  echo "to point to your robotics directory."
-fi
-
-ethros() {
-  IP=$(ifconfig eth0 | grep "inet addr:" | cut -d: -f2 | awk '{ print $1 }')
-  export ROS_IP=$IP
-}
-
-wlanros() {
-  IP=$(ifconfig wlan0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')
-  export ROS_IP=$IP
-}
-
-husky2() {
-    export ROS_MASTER_URI=http://192.168.0.22:11311
-    sudo ifconfig eth0 down
-    sudo ifconfig eth0 up
-    sudo ip addr add 192.168.0.180/24 dev eth0
-    ~/ip_forwarding_husky.sh 192.168.0.180  192.168.0.22  wlan0 eth0 192.168.0.0
-    ethros
-    source /home/jana/thesis_ws/devel/setup.bash
-}
-
-auv() {
-    wlanros
-    auv_master
-    source /home/jana/git/auv/catkin_ws/devel/setup.bash
-}
-
 wlanros
-export PYTHONPATH=${PYTHONPATH}:"/home/jana/git/school/ecse543:/usr/lib/python2.7/dist-packages"
-# :/usr/lib/python2.7/dist-packages
 local_master
+source /opt/ros/kinetic/setup.bash
