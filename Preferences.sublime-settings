@@ -3,7 +3,6 @@
 	"anaconda_linter_show_errors_on_save": true,
 	"anaconda_linting": true,
 	"bold_folder_labels": true,
-	"color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
 	"copy_with_empty_selection": false,
 	"ensure_newline_at_eof_on_save": true,
 	"font_size": 10,
