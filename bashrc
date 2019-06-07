@@ -121,4 +121,13 @@ fi
 
 wlanros
 local_master
-source /opt/ros/kinetic/setup.bash
+# source /opt/ros/kinetic/setup.bash
+ros_dep_ws
+
+# CUDA
+PATH="$PATH:/usr/local/cuda-9.0/bin"
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-9.0/lib64/
+
+# OpenRave
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(openrave-config --python-dir)/openravepy/_openravepy_
+export PYTHONPATH=$PYTHONPATH:$(openrave-config --python-dir)

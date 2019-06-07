@@ -14,3 +14,7 @@ export WEBOTS_HOME=/usr/local/webots
 
 # ENVS
 alias env_irl_ex="source /home/jana/env/irl-ex/bin/activate"
+
+# WORKSPACES
+alias ros_dep_ws="source /home/jana/dep_ws/devel/setup.bash"
+alias ros_progess_ws="source /home/jana/progress/ros/devel/setup.bash"
