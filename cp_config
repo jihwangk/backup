@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# To be safe...
+if [ ! -d "/home/$USER/tmp" ]; then
+    mkdir /home/$USER/tmp
+fi
+
+cp /home/$USER/.bashrc /home/$USER/tmp
+cp /home/$USER/.bash_aliases /home/$USER/tmp
+cp /home/$USER/.bash_fns /home/$USER/tmp
+cp /home/$USER/.config/sublime-text-3/Packages/User/Anaconda.sublime-settings /home/$USER/tmp
+cp /home/$USER/.config/sublime-text-3/Packages/User/Preferences.sublime-settings /home/$USER/tmp
+cp /home/$USER/.tmux.conf /home/$USER/tmp
+
+echo "Old files have been backed up to ~/tmp folder."
+
+# Bash setup.
+cp config/bashrc /home/$USER/.bashrc
+cp config/bash_aliases /home/$USER/.bash_aliases
+cp config/bash_fns /home/$USER/.bash_fns
+
+# Sublime Preferences.
+cp config/Anaconda.sublime-settings /home/$USER/.config/sublime-text-3/Packages/User/Anaconda.sublime-settings
+cp config/Preferences.sublime-settings /home/$USER/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
+
+# Tmux setup.
+cp config/tmux.conf /home/$USER/.tmux.conf
+
+# Apply changes to bash.
+source /home/$USER/.bashrc
+
+echo "Changes applied."

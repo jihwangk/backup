@@ -1,6 +1,4 @@
 {
-	"anaconda_linter_delay": 2,
-	"anaconda_linter_show_errors_on_save": true,
 	"anaconda_linting": true,
 	"bold_folder_labels": true,
 	"copy_with_empty_selection": false,

@@ -1,0 +1,16 @@
+# ALIASES
+
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias aquarium='/usr/local/bin/asciiquarium'
+alias android="sh /usr/local/android-studio/bin/studio.sh"
+
+# ENVS
+alias env_irl_ex="source /home/$USER/env/irl-ex/bin/activate"
+
+# WORKSPACES
+alias ros_dep_ws="source /home/$USER/dep_ws/devel/setup.bash"
+alias ros_progess_ws="source /home/$USER/progress/ros/devel/setup.bash"
+
+# ROS MASTERS
+alias local_master="export ROS_MASTER_URI=http://localhost:11311"
+alias auv_master="export ROS_MASTER_URI=http://192.168.0.102:11311"

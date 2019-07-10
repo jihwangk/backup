@@ -1,0 +1,8 @@
+git
+vim
+sublime-text
+python-pip
+python-catkin-tools
+tmux
+kdenlive
+simplescreenrecorder

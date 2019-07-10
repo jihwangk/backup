@@ -1,0 +1,55 @@
+# FUNCTIONS
+
+ethros() {
+  IP=$(ifconfig eno2 | grep "inet addr:" | cut -d: -f2 | awk '{ print $1 }')
+  export ROS_IP=$IP
+}
+
+wlanros() {
+  IP=$(ifconfig wlo1 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }')
+  export ROS_IP=$IP
+}
+
+husky2() {
+  export ROS_MASTER_URI=http://192.168.0.22:11311
+  sudo ifconfig eno2 down
+  sudo ifconfig eno2 up
+  sudo ip addr add 192.168.0.180/24 dev eno2
+  ~/ip_forwarding_husky.sh 192.168.0.180  192.168.0.22  wlo1 eno2 192.168.0.0
+  ethros
+}
+
+husky1() {
+  export ROS_MASTER_URI=http://192.168.0.12:11311
+  sudo ifconfig eno2 down
+  sudo ifconfig eno2 up
+  sudo ip addr add 192.168.0.180/24 dev eno2
+  ~/ip_forwarding_husky.sh 192.168.0.180  192.168.0.12  wlo1 eno2 192.168.0.0
+  ethros
+}
+
+auv() {
+  wlanros
+  auv_master
+  source /home/$USER/git/auv/catkin_ws/devel/setup.bash
+}
+
+fetch() {
+  if [[ $# -eq 0 ]]
+    then
+      echo "Provide the fetch number (7 or 18)."
+      return 1
+  fi
+  wlanros
+  export ROS_MASTER_URI="http://fetch$1:11311"
+  source /home/$USER/progress/ros/devel/setup.bash
+}
+
+startenv() {
+  if [[ $# -eq 0 ]]
+    then
+      echo "Provide the name of the virtual environment to activate."
+      return 1
+  fi
+  source /home/$USER/envs/$1/bin/activate
+}
