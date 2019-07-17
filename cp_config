@@ -1,16 +1,22 @@
 #!/bin/bash
 
+backup_file() {
+    if [ -d $1 ]; then
+        cp $1 /home/$USER/tmp
+    fi
+}
+
 # To be safe...
 if [ ! -d "/home/$USER/tmp" ]; then
     mkdir /home/$USER/tmp
 fi
 
-cp /home/$USER/.bashrc /home/$USER/tmp
-cp /home/$USER/.bash_aliases /home/$USER/tmp
-cp /home/$USER/.bash_fns /home/$USER/tmp
-cp /home/$USER/.config/sublime-text-3/Packages/User/Anaconda.sublime-settings /home/$USER/tmp
-cp /home/$USER/.config/sublime-text-3/Packages/User/Preferences.sublime-settings /home/$USER/tmp
-cp /home/$USER/.tmux.conf /home/$USER/tmp
+backup_file /home/$USER/.bashrc
+backup_file /home/$USER/.bash_aliases
+backup_file /home/$USER/.bash_fns
+backup_file /home/$USER/.config/sublime-text-3/Packages/User/Anaconda.sublime-settings
+backup_file /home/$USER/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
+backup_file /home/$USER/.tmux.conf
 
 echo "Old files have been backed up to ~/tmp folder."
 

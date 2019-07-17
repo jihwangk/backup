@@ -1,8 +1,11 @@
 git
 vim
 sublime-text
+python3.6-dev
 python-pip
+python3-pip
 python-catkin-tools
 tmux
 kdenlive
 simplescreenrecorder
+net-tools

@@ -1,0 +1,29 @@
+INSTALLING GRAPHICS DRIVERS
+
+1. Go into text-only mode using CTRL+ALT+F2 and do:
+
+    sudo service lightdm stop
+
+2. Add the graphics drivers PPA:
+
+    sudo add-apt-repository ppa:graphics-drivers/ppa
+    sudo apt update
+
+3. Install NVIDIA graphics driver:
+
+    sudo apt install nvidia-driver-418
+
+4. Install CUDA from runfile. Don't install the drivers. Install the samples.
+
+    sudo sh cuda_10.1.168_418.67_linux.run
+
+5. Set xconfig:
+
+    sudo nvidia-xconfig
+
+6. Restart computer.
+7. Test with samples:
+
+    cd SAMPLES_DIR/1_Utilities/deviceQuery
+    make
+    ./deviceQuery
