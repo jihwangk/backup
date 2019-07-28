@@ -4,8 +4,11 @@ sublime-text
 python3.6-dev
 python-pip
 python3-pip
+python3-venv
+python3-tk
 python-catkin-tools
 tmux
 kdenlive
 simplescreenrecorder
 net-tools
+gparted

@@ -31,7 +31,7 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 # Setup SSH keys...
-if [ ! -d "/home/$USER/.ssh/id_rsa.pub" ]; then
+if [ ! -f "/home/$USER/.ssh/id_rsa.pub" ]; then
     ssh-keygen
 fi
 
@@ -46,6 +46,9 @@ read -p "Press enter when done..."
 sudo apt install -y git
 
 # Setup git
+echo
+echo "Setting up git with name $NAME and email $EMAIL"
+echo
 git config --global user.email $EMAIL
 git config --global user.name $NAME
 
