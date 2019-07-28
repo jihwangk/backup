@@ -123,9 +123,12 @@ if ! shopt -oq posix; then
 fi
 
 wlanros
-local_master
+local-master
 source /opt/ros/$ROS_DISTRO/setup.bash
-# ros_dep_ws
+# ros-dep-ws
+
+# Default Git config to personal.
+git-personal-config
 
 # CUDA
 PATH="$PATH:/usr/local/cuda-$CUDA_VERSION/bin"
