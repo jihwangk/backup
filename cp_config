@@ -1,7 +1,9 @@
 #!/bin/bash
 
+INSTALL_DIR=/home/$USER/git/backup
+
 backup_file() {
-    if [ -d $1 ]; then
+    if [ -f $1 ]; then
         cp $1 /home/$USER/tmp
     fi
 }
@@ -21,16 +23,16 @@ backup_file /home/$USER/.tmux.conf
 echo "Old files have been backed up to ~/tmp folder."
 
 # Bash setup.
-cp config/bashrc /home/$USER/.bashrc
-cp config/bash_aliases /home/$USER/.bash_aliases
-cp config/bash_fns /home/$USER/.bash_fns
+ln -sf $INSTALL_DIR/config/bashrc /home/$USER/.bashrc
+ln -sf $INSTALL_DIR/config/bash_aliases /home/$USER/.bash_aliases
+ln -sf $INSTALL_DIR/config/bash_fns /home/$USER/.bash_fns
 
 # Sublime Preferences.
-cp config/Anaconda.sublime-settings /home/$USER/.config/sublime-text-3/Packages/User/Anaconda.sublime-settings
-cp config/Preferences.sublime-settings /home/$USER/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
+ln -sf $INSTALL_DIR/config/Anaconda.sublime-settings /home/$USER/.config/sublime-text-3/Packages/User/Anaconda.sublime-settings
+ln -sf $INSTALL_DIR/config/Preferences.sublime-settings /home/$USER/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 
 # Tmux setup.
-cp config/tmux.conf /home/$USER/.tmux.conf
+ln -sf $INSTALL_DIR/config/tmux.conf /home/$USER/.tmux.conf
 
 # Apply changes to bash.
 source /home/$USER/.bashrc
