@@ -6,8 +6,8 @@ mkdir_check() {
     fi
 }
 
-EMAIL="jbpavlasek@gmail.com"
-NAME="Jana Pavlasek"
+EMAIL="jihwangk@umich.edu"
+NAME="Henry Kim"
 
 # Exit when any command fails
 set -e
@@ -35,8 +35,8 @@ if [ ! -f "/home/$USER/.ssh/id_rsa.pub" ]; then
     ssh-keygen
 fi
 
-# Now setup keys in Github
-echo "Copy this key and add it to Github Settings:"
+# Now setup keys in Github / Gitlab
+echo "Copy this key and add it to Github / Gitlab Settings:"
 echo
 cat /home/$USER/.ssh/id_rsa.pub
 echo
@@ -54,15 +54,14 @@ git config --global user.name $NAME
 
 # Make some folders...
 mkdir_check /home/$USER/packages
-mkdir_check /home/$USER/progress
-mkdir_check /home/$USER/git
+mkdir_check /home/$USER/desktop_setup
 
 # Clone into backup repo.
-if [ ! -d "/home/$USER/git/backup" ]; then
+if [ ! -d "/home/$USER/desktop_setup/backup" ]; then
     echo
     echo "Cloning backup..."
     cd /home/$USER/git
-    git clone git@github.com:janapavlasek/backup.git
+    git clone git@github.com:jihwangk/backup.git
     echo
 fi
 
@@ -75,15 +74,12 @@ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sou
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 
-# Kdenlive preliminaries
-sudo add-apt-repository ppa:kdenlive/kdenlive-stable
-
 # Install apt deps.
 echo
 echo "Installing apt deps..."
 echo
 sudo apt update
-cd /home/$USER/git/backup
+cd /home/$USER/desktop_setup/backup
 sudo apt install -y $(grep -vE "^\s*#" install/apt_deps.txt  | tr "\n" " ")
 
 # Install pip deps.
@@ -112,7 +108,7 @@ sudo apt install -y ros-melodic-desktop-full
 echo
 echo "Setting up configs..."
 echo
-cd /home/$USER/git/backup/
+cd /home/$USER/desktop_setup/backup/
 ./cp_config
 source /home/$USER/.bashrc
 
@@ -121,9 +117,9 @@ echo
 echo "Your machine is set up! To install package control in sublime, do"
 echo "Ctrl + \` and copy this:"
 echo
-cat /home/$USER/git/backup/install/pkg_ctrl.txt
+cat /home/$USER/desktop_setup/backup/install/pkg_ctrl.txt
 echo
 echo "Then install these packages:"
 echo
-cat /home/$USER/git/backup/sublime-packages.txt
+cat /home/$USER/desktop_setup/backup/sublime-packages.txt
 echo

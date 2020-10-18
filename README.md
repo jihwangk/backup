@@ -2,26 +2,20 @@
 
 ## Graphics Instructions
 
-1. Go into text-only mode using `CTRL+ALT+F2` and do:
+1. Get the available repos with 'apt update':
 ```bash
-sudo service lightdm stop
-```
-
-2. Add the graphics drivers PPA:
-
-```bash
-sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo apt update
 ```
 
-3. Install NVIDIA graphics driver:
+3. Install NVIDIA graphics driver. Check compatible Nvidia driver version from https://www.nvidia.com/Download/index.aspx?lang=en-us:
 ```bash
-sudo apt install nvidia-driver-418
+sudo apt install nvidia-driver-430
 ```
 
-4. Install CUDA from runfile. Don't install the drivers. Install the samples.
+4. Install CUDA from runfile. Don't install the drivers. Get commands from https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=runfilelocal
 ```bash
-sudo sh cuda_10.1.168_418.67_linux.run
+wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
+sudo sh cuda_10.1.243_418.87.00_linux.run
 ```
 
 5. Set xconfig:
@@ -40,18 +34,27 @@ make
 
 ## Mounting External Harddrive
 
-Mount HDD partition:
+1. Mount HDD partition:
 ```bash
 sudo mkdir /hdd
 sudo mount /dev/sda1 /hdd
 ```
-then give permissions to user:
+
+2. then give permissions to user:
 ```bash
-sudo chown -R jana:jana /hdd/jana/
+sudo chown -R jihwangk:jihwangk /hdd/
 ```
 
-Add the following to `/etc/fstab` to that the partition is mounted by default:
+3. Add the following to `/etc/fstab` to that the partition is mounted by default:
 ```
 # HDD
 /dev/sda1     /hdd      ext4        defaults      0       0
 ```
+
+## Installing Basic Programs
+
+1. Run the setup:
+```bash
+sudo ./setup_machine
+```
+
